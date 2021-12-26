@@ -1,0 +1,46 @@
+Endpoints:
+
+1. ADMIN_ENDPOINT = "/api/v1/admin/**"  - to get dto with spred user data;
+2. USER_ENDPOINT = "/api/v1/users/"  -  to get dto with usual user data;
+3. LOGIN_ENDPOINT = "/api/v1/auth/login" -  to login and get auth token;
+4. MESSAGE_ENDPOINT = "/api/v1/messages"  - to save at database and send messages through json and box-mail.
+
+
+
+Setup and Installation
+
+1. Clone the repo from GitHub
+git clone https://github.com/ashwaniYDV/jwtappdemo-master.git
+cd expense-tracker-spring-rest
+
+2. If your database is hosted at some cloud platform or if you have modified the SQL script file with some different username and password,
+  update the src/main/resources/application.properties file accordingly:
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/jwt-rest     
+spring.datasource.username=postgres  
+spring.datasource.password=mike  
+
+  change the e-mail properties there:
+
+spring.mail.host:smtp.gmail.com
+spring.mail.port:587
+spring.mail.username:fimv@gmail.com
+spring.mail.password:password
+
+The send-box must be configured to work with outer applications.
+
+3. Run a postgres, pgadmin and spring-app images with docker-compose. The spring-app image is built automatically if it doesn't exist.
+# up containers
+$ docker-compose up -d
+
+# down containers
+$ docker-compose down
+
+4. In the root application directory (expense-tracker-spring-rest), SQL script file (db_init.sql) is present for creating all database objects
+The db_init.sql file executed from dockkerfile_db. 
+Also you may copy this file to the running container using below command and then exec into the running container:
+docker container db_init.sql jwt-postgres-db:/
+docker container exec -it jwt-postgres-db bash
+run the script using psql client:
+psql -U postgres --file jwt_db.sql
+
